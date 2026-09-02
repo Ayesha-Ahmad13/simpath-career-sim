@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AssessmentRouteImport } from './routes/assessment'
+import { Route as CompareRouteImport } from './routes/compare'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as MentorRouteImport } from './routes/mentor'
+import { Route as ResultsCareerIdRouteImport } from './routes/results.$careerId'
+import { Route as SimulationsIndexRouteImport } from './routes/simulations.index'
+import { Route as SimulationsCareerIdRouteImport } from './routes/simulations.$careerId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssessmentRoute = AssessmentRouteImport.update({
+  id: '/assessment',
+  path: '/assessment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareRoute = CompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentorRoute = MentorRouteImport.update({
+  id: '/mentor',
+  path: '/mentor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultsCareerIdRoute = ResultsCareerIdRouteImport.update({
+  id: '/results/$careerId',
+  path: '/results/$careerId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SimulationsIndexRoute = SimulationsIndexRouteImport.update({
+  id: '/simulations/',
+  path: '/simulations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SimulationsCareerIdRoute = SimulationsCareerIdRouteImport.update({
+  id: '/simulations/$careerId',
+  path: '/simulations/$careerId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/assessment': typeof AssessmentRoute
+  '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
+  '/explore': typeof ExploreRoute
+  '/mentor': typeof MentorRoute
+  '/results/$careerId': typeof ResultsCareerIdRoute
+  '/simulations/$careerId': typeof SimulationsCareerIdRoute
+  '/simulations/': typeof SimulationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/assessment': typeof AssessmentRoute
+  '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
+  '/explore': typeof ExploreRoute
+  '/mentor': typeof MentorRoute
+  '/results/$careerId': typeof ResultsCareerIdRoute
+  '/simulations/$careerId': typeof SimulationsCareerIdRoute
+  '/simulations': typeof SimulationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/assessment': typeof AssessmentRoute
+  '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
+  '/explore': typeof ExploreRoute
+  '/mentor': typeof MentorRoute
+  '/results/$careerId': typeof ResultsCareerIdRoute
+  '/simulations/$careerId': typeof SimulationsCareerIdRoute
+  '/simulations/': typeof SimulationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/assessment'
+    | '/compare'
+    | '/dashboard'
+    | '/explore'
+    | '/mentor'
+    | '/results/$careerId'
+    | '/simulations/$careerId'
+    | '/simulations/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/assessment'
+    | '/compare'
+    | '/dashboard'
+    | '/explore'
+    | '/mentor'
+    | '/results/$careerId'
+    | '/simulations/$careerId'
+    | '/simulations'
+  id:
+    | '__root__'
+    | '/'
+    | '/assessment'
+    | '/compare'
+    | '/dashboard'
+    | '/explore'
+    | '/mentor'
+    | '/results/$careerId'
+    | '/simulations/$careerId'
+    | '/simulations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AssessmentRoute: typeof AssessmentRoute
+  CompareRoute: typeof CompareRoute
+  DashboardRoute: typeof DashboardRoute
+  ExploreRoute: typeof ExploreRoute
+  MentorRoute: typeof MentorRoute
+  ResultsCareerIdRoute: typeof ResultsCareerIdRoute
+  SimulationsCareerIdRoute: typeof SimulationsCareerIdRoute
+  SimulationsIndexRoute: typeof SimulationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assessment': {
+      id: '/assessment'
+      path: '/assessment'
+      fullPath: '/assessment'
+      preLoaderRoute: typeof AssessmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare': {
+      id: '/compare'
+      path: '/compare'
+      fullPath: '/compare'
+      preLoaderRoute: typeof CompareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentor': {
+      id: '/mentor'
+      path: '/mentor'
+      fullPath: '/mentor'
+      preLoaderRoute: typeof MentorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/results/$careerId': {
+      id: '/results/$careerId'
+      path: '/results/$careerId'
+      fullPath: '/results/$careerId'
+      preLoaderRoute: typeof ResultsCareerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/simulations/': {
+      id: '/simulations/'
+      path: '/simulations'
+      fullPath: '/simulations/'
+      preLoaderRoute: typeof SimulationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/simulations/$careerId': {
+      id: '/simulations/$careerId'
+      path: '/simulations/$careerId'
+      fullPath: '/simulations/$careerId'
+      preLoaderRoute: typeof SimulationsCareerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AssessmentRoute: AssessmentRoute,
+  CompareRoute: CompareRoute,
+  DashboardRoute: DashboardRoute,
+  ExploreRoute: ExploreRoute,
+  MentorRoute: MentorRoute,
+  ResultsCareerIdRoute: ResultsCareerIdRoute,
+  SimulationsCareerIdRoute: SimulationsCareerIdRoute,
+  SimulationsIndexRoute: SimulationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
