@@ -25,7 +25,7 @@ export const Route = createFileRoute("/simulations/")({
 
 function SimulationsIndex() {
   const sims = availableSimulationIds
-    .map((id) => ({ sim: getSimulation(id), career: careers.find((c) => c.id === id)! }))
+    .map((id) => ({ sim: getSimulation(id)!, career: careers.find((c) => c.id === id)! }))
     .filter((s) => s.career);
 
   return (

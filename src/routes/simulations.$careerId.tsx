@@ -45,7 +45,7 @@ function SimulationRunner() {
   const [selected, setSelected] = useState<SimOption | null>(null);
   const [decisions, setDecisions] = useState<SimRunDecision[]>([]);
 
-  const scenario = sim.scenarios[index];
+  const scenario = sim.scenarios[index]!;
   const maxScore = sim.scenarios.length * 25;
   const score = decisions.reduce((t, d) => t + d.points, 0);
   const progress = (index / sim.scenarios.length) * 100;
