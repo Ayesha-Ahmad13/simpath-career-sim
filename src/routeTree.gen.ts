@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as ResultsCareerIdRouteImport } from './routes/results.$careerId'
 import { Route as SimulationsIndexRouteImport } from './routes/simulations.index'
 import { Route as SimulationsCareerIdRouteImport } from './routes/simulations.$careerId'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const ExploreRoute = ExploreRouteImport.update({
   id: '/explore',
   path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultsCareerIdRoute = ResultsCareerIdRouteImport.update({
+  id: '/results/$careerId',
+  path: '/results/$careerId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SimulationsIndexRoute = SimulationsIndexRouteImport.update({
@@ -38,12 +44,14 @@ const SimulationsCareerIdRoute = SimulationsCareerIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/explore': typeof ExploreRoute
+  '/results/$careerId': typeof ResultsCareerIdRoute
   '/simulations/$careerId': typeof SimulationsCareerIdRoute
   '/simulations/': typeof SimulationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/explore': typeof ExploreRoute
+  '/results/$careerId': typeof ResultsCareerIdRoute
   '/simulations/$careerId': typeof SimulationsCareerIdRoute
   '/simulations': typeof SimulationsIndexRoute
 }
@@ -51,20 +59,38 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/explore': typeof ExploreRoute
+  '/results/$careerId': typeof ResultsCareerIdRoute
   '/simulations/$careerId': typeof SimulationsCareerIdRoute
   '/simulations/': typeof SimulationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explore' | '/simulations/$careerId' | '/simulations/'
+  fullPaths:
+    | '/'
+    | '/explore'
+    | '/results/$careerId'
+    | '/simulations/$careerId'
+    | '/simulations/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explore' | '/simulations/$careerId' | '/simulations'
-  id: '__root__' | '/' | '/explore' | '/simulations/$careerId' | '/simulations/'
+  to:
+    | '/'
+    | '/explore'
+    | '/results/$careerId'
+    | '/simulations/$careerId'
+    | '/simulations'
+  id:
+    | '__root__'
+    | '/'
+    | '/explore'
+    | '/results/$careerId'
+    | '/simulations/$careerId'
+    | '/simulations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ExploreRoute: typeof ExploreRoute
+  ResultsCareerIdRoute: typeof ResultsCareerIdRoute
   SimulationsCareerIdRoute: typeof SimulationsCareerIdRoute
   SimulationsIndexRoute: typeof SimulationsIndexRoute
 }
@@ -83,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/explore'
       fullPath: '/explore'
       preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/results/$careerId': {
+      id: '/results/$careerId'
+      path: '/results/$careerId'
+      fullPath: '/results/$careerId'
+      preLoaderRoute: typeof ResultsCareerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/simulations/': {
@@ -105,6 +138,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ExploreRoute: ExploreRoute,
+  ResultsCareerIdRoute: ResultsCareerIdRoute,
   SimulationsCareerIdRoute: SimulationsCareerIdRoute,
   SimulationsIndexRoute: SimulationsIndexRoute,
 }
