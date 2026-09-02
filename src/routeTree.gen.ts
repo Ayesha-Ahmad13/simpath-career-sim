@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssessmentRouteImport } from './routes/assessment'
 import { Route as CompareRouteImport } from './routes/compare'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as MentorRouteImport } from './routes/mentor'
 import { Route as ResultsCareerIdRouteImport } from './routes/results.$careerId'
 import { Route as SimulationsIndexRouteImport } from './routes/simulations.index'
 import { Route as SimulationsCareerIdRouteImport } from './routes/simulations.$careerId'
@@ -32,9 +34,19 @@ const CompareRoute = CompareRouteImport.update({
   path: '/compare',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreRoute = ExploreRouteImport.update({
   id: '/explore',
   path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentorRoute = MentorRouteImport.update({
+  id: '/mentor',
+  path: '/mentor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResultsCareerIdRoute = ResultsCareerIdRouteImport.update({
@@ -57,7 +69,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
   '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
+  '/mentor': typeof MentorRoute
   '/results/$careerId': typeof ResultsCareerIdRoute
   '/simulations/$careerId': typeof SimulationsCareerIdRoute
   '/simulations/': typeof SimulationsIndexRoute
@@ -66,7 +80,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
   '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
+  '/mentor': typeof MentorRoute
   '/results/$careerId': typeof ResultsCareerIdRoute
   '/simulations/$careerId': typeof SimulationsCareerIdRoute
   '/simulations': typeof SimulationsIndexRoute
@@ -76,7 +92,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
   '/compare': typeof CompareRoute
+  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
+  '/mentor': typeof MentorRoute
   '/results/$careerId': typeof ResultsCareerIdRoute
   '/simulations/$careerId': typeof SimulationsCareerIdRoute
   '/simulations/': typeof SimulationsIndexRoute
@@ -87,7 +105,9 @@ export interface FileRouteTypes {
     | '/'
     | '/assessment'
     | '/compare'
+    | '/dashboard'
     | '/explore'
+    | '/mentor'
     | '/results/$careerId'
     | '/simulations/$careerId'
     | '/simulations/'
@@ -96,7 +116,9 @@ export interface FileRouteTypes {
     | '/'
     | '/assessment'
     | '/compare'
+    | '/dashboard'
     | '/explore'
+    | '/mentor'
     | '/results/$careerId'
     | '/simulations/$careerId'
     | '/simulations'
@@ -105,7 +127,9 @@ export interface FileRouteTypes {
     | '/'
     | '/assessment'
     | '/compare'
+    | '/dashboard'
     | '/explore'
+    | '/mentor'
     | '/results/$careerId'
     | '/simulations/$careerId'
     | '/simulations/'
@@ -115,7 +139,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssessmentRoute: typeof AssessmentRoute
   CompareRoute: typeof CompareRoute
+  DashboardRoute: typeof DashboardRoute
   ExploreRoute: typeof ExploreRoute
+  MentorRoute: typeof MentorRoute
   ResultsCareerIdRoute: typeof ResultsCareerIdRoute
   SimulationsCareerIdRoute: typeof SimulationsCareerIdRoute
   SimulationsIndexRoute: typeof SimulationsIndexRoute
@@ -144,11 +170,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore': {
       id: '/explore'
       path: '/explore'
       fullPath: '/explore'
       preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentor': {
+      id: '/mentor'
+      path: '/mentor'
+      fullPath: '/mentor'
+      preLoaderRoute: typeof MentorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/results/$careerId': {
@@ -179,7 +219,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssessmentRoute: AssessmentRoute,
   CompareRoute: CompareRoute,
+  DashboardRoute: DashboardRoute,
   ExploreRoute: ExploreRoute,
+  MentorRoute: MentorRoute,
   ResultsCareerIdRoute: ResultsCareerIdRoute,
   SimulationsCareerIdRoute: SimulationsCareerIdRoute,
   SimulationsIndexRoute: SimulationsIndexRoute,
