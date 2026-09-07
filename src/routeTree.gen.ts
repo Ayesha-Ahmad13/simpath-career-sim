@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssessmentRouteImport } from './routes/assessment'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExploreRouteImport } from './routes/explore'
@@ -27,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const AssessmentRoute = AssessmentRouteImport.update({
   id: '/assessment',
   path: '/assessment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompareRoute = CompareRouteImport.update({
@@ -68,6 +74,7 @@ const SimulationsCareerIdRoute = SimulationsCareerIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
+  '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
   '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
+  '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
   '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
+  '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
   '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/assessment'
+    | '/auth'
     | '/compare'
     | '/dashboard'
     | '/explore'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/assessment'
+    | '/auth'
     | '/compare'
     | '/dashboard'
     | '/explore'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/assessment'
+    | '/auth'
     | '/compare'
     | '/dashboard'
     | '/explore'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssessmentRoute: typeof AssessmentRoute
+  AuthRoute: typeof AuthRoute
   CompareRoute: typeof CompareRoute
   DashboardRoute: typeof DashboardRoute
   ExploreRoute: typeof ExploreRoute
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/assessment'
       fullPath: '/assessment'
       preLoaderRoute: typeof AssessmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/compare': {
@@ -218,6 +238,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssessmentRoute: AssessmentRoute,
+  AuthRoute: AuthRoute,
   CompareRoute: CompareRoute,
   DashboardRoute: DashboardRoute,
   ExploreRoute: ExploreRoute,
