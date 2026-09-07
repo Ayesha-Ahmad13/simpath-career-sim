@@ -107,20 +107,41 @@ export function Navbar() {
               </Link>
             ))}
             <div className="mt-3 flex gap-2">
-              <Link
-                to="/dashboard"
-                onClick={() => setOpen(false)}
-                className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-semibold text-foreground"
-              >
-                Log In
-              </Link>
-              <Link
-                to="/assessment"
-                onClick={() => setOpen(false)}
-                className="flex-1 rounded-full bg-gradient-ai px-4 py-2.5 text-center text-sm font-semibold text-primary-foreground"
-              >
-                Get Started
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    to="/dashboard"
+                    onClick={() => setOpen(false)}
+                    className="flex-1 truncate rounded-full border border-border px-4 py-2.5 text-center text-sm font-semibold text-foreground"
+                  >
+                    {displayName || "My dashboard"}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={signOut}
+                    className="flex-1 rounded-full bg-gradient-ai px-4 py-2.5 text-center text-sm font-semibold text-primary-foreground"
+                  >
+                    Log Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/auth"
+                    onClick={() => setOpen(false)}
+                    className="flex-1 rounded-full border border-border px-4 py-2.5 text-center text-sm font-semibold text-foreground"
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    to="/auth"
+                    onClick={() => setOpen(false)}
+                    className="flex-1 rounded-full bg-gradient-ai px-4 py-2.5 text-center text-sm font-semibold text-primary-foreground"
+                  >
+                    Get Started
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
