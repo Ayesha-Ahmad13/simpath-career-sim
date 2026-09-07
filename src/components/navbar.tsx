@@ -17,6 +17,15 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const { user, displayName } = useAuth();
+  const navigate = useNavigate();
+
+  async function signOut() {
+    await supabase.auth.signOut();
+    setOpen(false);
+    navigate({ to: "/", replace: true });
+  }
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 glass">
@@ -39,18 +48,38 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Link
-            to="/dashboard"
-            className="hidden rounded-full px-3.5 py-2 text-sm font-semibold text-foreground transition-colors hover:text-primary sm:inline-flex"
-          >
-            Log In
-          </Link>
-          <Link
-            to="/assessment"
-            className="hidden rounded-full bg-gradient-ai px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:-translate-y-0.5 sm:inline-flex"
-          >
-            Get Started
-          </Link>
+          {user ? (
+            <>
+              <Link
+                to="/dashboard"
+                className="hidden max-w-[10rem] truncate rounded-full px-3.5 py-2 text-sm font-semibold text-foreground transition-colors hover:text-primary sm:inline-flex"
+              >
+                {displayName || "My dashboard"}
+              </Link>
+              <button
+                type="button"
+                onClick={signOut}
+                className="hidden rounded-full border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent sm:inline-flex"
+              >
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/auth"
+                className="hidden rounded-full px-3.5 py-2 text-sm font-semibold text-foreground transition-colors hover:text-primary sm:inline-flex"
+              >
+                Log In
+              </Link>
+              <Link
+                to="/auth"
+                className="hidden rounded-full bg-gradient-ai px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow transition-transform hover:-translate-y-0.5 sm:inline-flex"
+              >
+                Get Started
+              </Link>
+            </>
+          )}
           <button
             type="button"
             aria-label="Toggle menu"
