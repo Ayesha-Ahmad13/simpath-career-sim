@@ -10,11 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AssessmentRouteImport } from './routes/assessment'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CompareRouteImport } from './routes/compare'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as MentorRouteImport } from './routes/mentor'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as ResultsCareerIdRouteImport } from './routes/results.$careerId'
 import { Route as SimulationsIndexRouteImport } from './routes/simulations.index'
 import { Route as SimulationsCareerIdRouteImport } from './routes/simulations.$careerId'
@@ -24,19 +26,23 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssessmentRoute = AssessmentRouteImport.update({
   id: '/assessment',
   path: '/assessment',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompareRoute = CompareRouteImport.update({
   id: '/compare',
   path: '/compare',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExploreRoute = ExploreRouteImport.update({
@@ -48,6 +54,11 @@ const MentorRoute = MentorRouteImport.update({
   id: '/mentor',
   path: '/mentor',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ResultsCareerIdRoute = ResultsCareerIdRouteImport.update({
   id: '/results/$careerId',
@@ -68,10 +79,11 @@ const SimulationsCareerIdRoute = SimulationsCareerIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
+  '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
-  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
   '/mentor': typeof MentorRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/results/$careerId': typeof ResultsCareerIdRoute
   '/simulations/$careerId': typeof SimulationsCareerIdRoute
   '/simulations/': typeof SimulationsIndexRoute
@@ -79,10 +91,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assessment': typeof AssessmentRoute
+  '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
-  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
   '/mentor': typeof MentorRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/results/$careerId': typeof ResultsCareerIdRoute
   '/simulations/$careerId': typeof SimulationsCareerIdRoute
   '/simulations': typeof SimulationsIndexRoute
@@ -90,11 +103,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/assessment': typeof AssessmentRoute
+  '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
-  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
   '/mentor': typeof MentorRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/results/$careerId': typeof ResultsCareerIdRoute
   '/simulations/$careerId': typeof SimulationsCareerIdRoute
   '/simulations/': typeof SimulationsIndexRoute
@@ -104,10 +119,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/assessment'
+    | '/auth'
     | '/compare'
-    | '/dashboard'
     | '/explore'
     | '/mentor'
+    | '/dashboard'
     | '/results/$careerId'
     | '/simulations/$careerId'
     | '/simulations/'
@@ -115,21 +131,24 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/assessment'
+    | '/auth'
     | '/compare'
-    | '/dashboard'
     | '/explore'
     | '/mentor'
+    | '/dashboard'
     | '/results/$careerId'
     | '/simulations/$careerId'
     | '/simulations'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/assessment'
+    | '/auth'
     | '/compare'
-    | '/dashboard'
     | '/explore'
     | '/mentor'
+    | '/_authenticated/dashboard'
     | '/results/$careerId'
     | '/simulations/$careerId'
     | '/simulations/'
@@ -137,9 +156,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AssessmentRoute: typeof AssessmentRoute
+  AuthRoute: typeof AuthRoute
   CompareRoute: typeof CompareRoute
-  DashboardRoute: typeof DashboardRoute
   ExploreRoute: typeof ExploreRoute
   MentorRoute: typeof MentorRoute
   ResultsCareerIdRoute: typeof ResultsCareerIdRoute
@@ -156,6 +176,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assessment': {
       id: '/assessment'
       path: '/assessment'
@@ -163,18 +190,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssessmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/compare': {
       id: '/compare'
       path: '/compare'
       fullPath: '/compare'
       preLoaderRoute: typeof CompareRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explore': {
@@ -190,6 +217,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/mentor'
       preLoaderRoute: typeof MentorRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/results/$careerId': {
       id: '/results/$careerId'
@@ -215,11 +249,23 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AssessmentRoute: AssessmentRoute,
+  AuthRoute: AuthRoute,
   CompareRoute: CompareRoute,
-  DashboardRoute: DashboardRoute,
   ExploreRoute: ExploreRoute,
   MentorRoute: MentorRoute,
   ResultsCareerIdRoute: ResultsCareerIdRoute,

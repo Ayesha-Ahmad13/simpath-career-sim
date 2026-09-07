@@ -17,8 +17,9 @@ import {
 } from "recharts";
 import { careerIcon } from "@/components/career-icon";
 import { careers } from "@/data/careers";
+import { useAuth } from "@/hooks/use-auth";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
       { title: "Student Dashboard — SimPath" },
@@ -66,6 +67,7 @@ const badges: { icon: LucideIcon; label: string; tone: string }[] = [
 ];
 
 function Dashboard() {
+  const { displayName } = useAuth();
   const recent = careers.filter((c) =>
     ["ai-engineer", "doctor", "ux-designer", "entrepreneur"].includes(c.id),
   );
@@ -78,7 +80,7 @@ function Dashboard() {
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="font-display text-3xl font-extrabold text-foreground sm:text-4xl">
-            Welcome back, Ayesha 👋
+            Welcome back{displayName ? `, ${displayName}` : ""} 👋
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             You&apos;re 1,120 XP away from Level 5 — one simulation should do it.
