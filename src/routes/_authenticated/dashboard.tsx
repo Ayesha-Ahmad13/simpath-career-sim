@@ -18,7 +18,7 @@ import {
 import { careerIcon } from "@/components/career-icon";
 import { careers } from "@/data/careers";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
       { title: "Student Dashboard — SimPath" },
