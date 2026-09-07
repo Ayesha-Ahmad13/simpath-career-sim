@@ -17,6 +17,7 @@ import {
 } from "recharts";
 import { careerIcon } from "@/components/career-icon";
 import { careers } from "@/data/careers";
+import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({

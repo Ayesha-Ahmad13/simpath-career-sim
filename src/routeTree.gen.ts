@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AssessmentRouteImport } from './routes/assessment'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -23,6 +24,10 @@ import { Route as SimulationsCareerIdRouteImport } from './routes/simulations.$c
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssessmentRoute = AssessmentRouteImport.update({
@@ -51,9 +56,9 @@ const MentorRoute = MentorRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/_authenticated/dashboard',
+  id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ResultsCareerIdRoute = ResultsCareerIdRouteImport.update({
   id: '/results/$careerId',
@@ -98,6 +103,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/assessment': typeof AssessmentRoute
   '/auth': typeof AuthRoute
   '/compare': typeof CompareRoute
@@ -136,6 +142,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/assessment'
     | '/auth'
     | '/compare'
@@ -149,12 +156,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AssessmentRoute: typeof AssessmentRoute
   AuthRoute: typeof AuthRoute
   CompareRoute: typeof CompareRoute
   ExploreRoute: typeof ExploreRoute
   MentorRoute: typeof MentorRoute
-  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   ResultsCareerIdRoute: typeof ResultsCareerIdRoute
   SimulationsCareerIdRoute: typeof SimulationsCareerIdRoute
   SimulationsIndexRoute: typeof SimulationsIndexRoute
@@ -167,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/assessment': {
@@ -209,7 +223,7 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/results/$careerId': {
       id: '/results/$careerId'
@@ -235,14 +249,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AssessmentRoute: AssessmentRoute,
   AuthRoute: AuthRoute,
   CompareRoute: CompareRoute,
   ExploreRoute: ExploreRoute,
   MentorRoute: MentorRoute,
-  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   ResultsCareerIdRoute: ResultsCareerIdRoute,
   SimulationsCareerIdRoute: SimulationsCareerIdRoute,
   SimulationsIndexRoute: SimulationsIndexRoute,
